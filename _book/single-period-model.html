@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Single Period Model | Financial Modeling Analysis</title>
+  <meta name="description" content="Notes" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Single Period Model | Financial Modeling Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Notes" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Single Period Model | Financial Modeling Analysis" />
+  
+  <meta name="twitter:description" content="Notes" />
+  
+
+<meta name="author" content="Xie Zejian" />
+
+
+<meta name="date" content="2021-09-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> TEST</a></li>
+<li class="chapter" data-level="2" data-path="single-period-model.html"><a href="single-period-model.html"><i class="fa fa-check"></i><b>2</b> Single Period Model</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="single-period-model.html"><a href="single-period-model.html#simple-example"><i class="fa fa-check"></i><b>2.1</b> Simple Example</a></li>
+<li class="chapter" data-level="2.2" data-path="single-period-model.html"><a href="single-period-model.html#state-price"><i class="fa fa-check"></i><b>2.2</b> State price</a></li>
+<li class="chapter" data-level="2.3" data-path="single-period-model.html"><a href="single-period-model.html#discrete-martingale"><i class="fa fa-check"></i><b>2.3</b> Discrete Martingale</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Financial Modeling Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+\(
+\newcommand{\bm}[1]{\boldsymbol{\mathbf{#1}}}
+\)
+<div id="single-period-model" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Single Period Model</h1>
+<div id="simple-example" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Simple Example</h2>
+<p>Suppose one buy a call option <span class="math inline">\(C\)</span> which payoff <span class="math inline">\(V_1=(S_1-K)^{+}\)</span> at time <span class="math inline">\(1\)</span>, <span class="math inline">\(S_1\)</span>
+can be <span class="math inline">\(uS_0&gt;K\)</span> or <span class="math inline">\(dS_0&lt;K\)</span> determined in probability space <span class="math inline">\((\left\{ H,T \right\},2^{\left\{ H,T \right\}},\mathop{{}\mathbb{P}})\)</span>.
+To replicate such option, we construct our portfolio by buying
+<span class="math inline">\(\Delta_0\)</span> stock and investing remaining in risk-free asset at return <span class="math inline">\(r\)</span>:
+<span class="math display">\[
+(V_0-\Delta_0S_0)(1+r)+\Delta_0S_1=(S_1-K)^{+}
+\]</span>
+solve:
+<span class="math display">\[
+V_0=\frac{p V_1(H)+qV_1(T)}{1+r},\Delta_0= \frac{V_1(H)-V_1(T)}{S_1(H)-S_1(T)}
+\]</span>
+where <span class="math inline">\(p=\frac{1+r-d}{u-d},q=1-p\)</span>.</p>
+<p><span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> can be then seen as probability assigned to <span class="math inline">\(\mathop{{}\mathbb{P}}\left\{ H \right\}\)</span> and <span class="math inline">\(\mathop{{}\mathbb{P}}\left\{ T \right\}\)</span>. Then <span class="math inline">\(V_0\)</span> is just the discounted of expected value of such option, such measure <span class="math inline">\(\mathop{{}\mathbb{P}}\)</span> is called <strong>risk-neutral</strong>.</p>
+</div>
+<div id="state-price" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> State price</h2>
+<p>Suppose <span class="math inline">\(\bm{S_0}\in \mathbb{R}^{N}\)</span> is price of <span class="math inline">\(N\)</span> stocks at time <span class="math inline">\(0\)</span>,
+and <span class="math inline">\(\bm{D}\in \mathbb{R}^{N\times n}\)</span> is their price at time <span class="math inline">\(t\)</span> for <span class="math inline">\(n\)</span> states.
+For any portfolio <span class="math inline">\(\bm{\theta}\in \mathbb{R}^{N}\)</span>, it cost <span class="math inline">\(\bm{S_0&#39;\theta}\)</span> and
+its value is <span class="math inline">\(\bm{D&#39;\theta}\in \mathbb{R}^{n}\)</span> for all <span class="math inline">\(n\)</span> states.</p>
+<p>An arbitrage is then defined as a portfolio <span class="math inline">\(\theta, s.t.\)</span> <span class="math inline">\(\bm{S&#39;\theta}\)</span> have different sign with <span class="math inline">\(\bm{D&#39;\theta}\)</span>.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 2.1  (State price) </strong></span>A state price vector is <span class="math inline">\(\psi \in \mathbb{R}_{++}^{n}\)</span> <span class="math inline">\(s.t.\)</span> <span class="math inline">\(\bm{S_0}=\bm{D\psi}\)</span>.</p>
+</div>
+<p>To justify the name of state price, suppose we want to “bet” the state of market, <span class="math inline">\(i.e.\)</span>, we would like earning <span class="math inline">\(\bm{1}_{state=i}\)</span>, then our portfolio supposed to be <span class="math inline">\(\bm{D&#39;\theta}=\bm{e_i}\)</span>, and it cost
+<span class="math display">\[
+\bm{S_0&#39;\theta}=\bm{\psi&#39;D&#39;\theta=\psi&#39;e_i=}\psi_i
+\]</span>
+so the coordinate of <span class="math inline">\(\bm{\psi}\)</span> is the price of “betting” a state.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-2" class="theorem"><strong>Theorem 2.1  () </strong></span>There is no arbitrage iff there is a state price vector.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:SPH" class="theorem"><strong>Theorem 2.2  (Separating Hyperplane Theorem) </strong></span>Suppose <span class="math inline">\(M\)</span> and <span class="math inline">\(K\)</span> are closed convex cones in <span class="math inline">\(\mathbb{R}^{d}\)</span> that <span class="math inline">\(M \cap K=\left\{ \bm{0} \right\}\)</span>, if <span class="math inline">\(K\)</span> isn’t a liner space, then there is a nonzero linear <span class="math inline">\(f\)</span> separated them, <span class="math inline">\(i.e.\)</span>, <span class="math inline">\(f(x)&lt;f(y)\)</span> for any <span class="math inline">\(x\in M\)</span> and <span class="math inline">\(y \in K- \left\{ \bm{0} \right\}\)</span>.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:riesz" class="theorem"><strong>Theorem 2.3  (Riesz Representation Theorem) </strong></span>Any continuous linear function <span class="math inline">\(f\)</span> on Hilbert space <span class="math inline">\(\mathcal{H}\)</span> can be written as <span class="math inline">\(f(x)=\left\langle x,v \right\rangle\)</span> for some <span class="math inline">\(v \in \mathcal{H}\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-3" class="proof"><em>Proof</em>. </span>Let <span class="math inline">\(M=\left\{ (-\bm{S_0&#39;\theta},\bm{D&#39;\theta}):\theta \in \mathbb{R}^{N} \right\}\)</span> and <span class="math inline">\(K=\mathbb{R}_{+}\times \mathbb{R}_{+}^{n}\)</span>. Then there is no arbitrage iff <span class="math inline">\(K\cap M=\left\{ \bm{0} \right\}\)</span>.</p>
+<p><span class="math inline">\(\implies\)</span>, let <span class="math inline">\(f\)</span> be the functional in theorem <a href="single-period-model.html#thm:SPH">2.2</a>, note <span class="math inline">\(M\)</span> is a linear space, <span class="math inline">\(f\)</span> should be vanish on <span class="math inline">\(M\)</span>, <span class="math inline">\(i.e.\)</span>, <span class="math inline">\(f(x)=0,\forall x \in M\)</span>, otherwise, fix <span class="math inline">\(f(y)&gt;0\)</span> for <span class="math inline">\(y\in K-\left\{ 0 \right\}\)</span>, we can find <span class="math inline">\(\lambda \in \mathbb{R}\)</span> <span class="math inline">\(s.t.\)</span> <span class="math inline">\(\lambda f(x)=f(\lambda x)&gt;f(y)\)</span>.</p>
+<p>Then by theorem <a href="single-period-model.html#thm:riesz">2.3</a>, we have <span class="math inline">\(f(x)=x&#39;v\)</span> for some <span class="math inline">\(v\)</span>, write <span class="math inline">\(v=(\alpha,\phi)\)</span> where <span class="math inline">\(\alpha\in \mathbb{R}\)</span> and <span class="math inline">\(\phi \in \mathbb{R}^{n}\)</span>. Since <span class="math inline">\(f(x)&gt;0\)</span> for nonzero <span class="math inline">\(x \in K\)</span>, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\phi\)</span> should strictly positive, then
+<span class="math display">\[
+- \alpha \bm{S_0&#39;\theta}+\bm{\phi&#39;D&#39;\theta}=0
+\]</span>
+which implies <span class="math inline">\(-\alpha \bm{S_0}+\bm{D\phi}=\bm{0}\)</span> and thus <span class="math inline">\(\frac{\phi}{\alpha}\)</span> is a state price vector as required.</p>
+<p><span class="math inline">\(\impliedby\)</span>, Suppose <span class="math inline">\((-\bm{S_0&#39;\theta},\bm{D&#39;\theta}) \in K\)</span>, then, <span class="math inline">\(\bm{\psi&#39;D&#39;\theta}\le 0\)</span> and <span class="math inline">\(\bm{D&#39;\theta}\)</span>, which contrast to <span class="math inline">\(\psi \gg 0\)</span>.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-4" class="exercise"><strong>Exercise 2.1  () </strong></span>1</p>
+</div>
+<div class="solution">
+<p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span>Given above.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-6" class="exercise"><strong>Exercise 2.2  () </strong></span>2</p>
+</div>
+<div class="solution">
+<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>Setup:
+<span class="math display">\[
+\bm{S_0}=(1,S_0)&#39;, \bm{D}=\begin{bmatrix}
+                              1+r   &amp; 1+r   \\
+                              uS_0  &amp; dS_0  \\
+                          \end{bmatrix}
+\]</span>
+then the state price should be
+<span class="math display">\[
+\bm{\psi}=\bm{D^{-1}S_0}=[(-u+1+r)S_0,(d-1-r)S_0]&#39;\gg 0
+\]</span>
+then claim follows.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-8" class="exercise"><strong>Exercise 2.3  () </strong></span>3</p>
+</div>
+<div class="solution">
+<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span>No. Let <span class="math inline">\(\psi=(\frac{1}{3},\frac{1}{3})\)</span>, it’s a state price vector.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-10" class="exercise"><strong>Exercise 2.4  () </strong></span>4</p>
+</div>
+<div class="solution">
+<p><span id="unlabeled-div-11" class="solution"><em>Solution</em>. </span>Note column space of <span class="math inline">\(D\)</span> is just <span class="math inline">\(\left\{ \lambda\cdot(1,2,3)&#39;: \lambda \in \mathbb{R} \right\}\)</span>, which excluded <span class="math inline">\(\overline{q}\)</span>, therefore there is no state price vector and thus arbitrage exists.</p>
+</div>
+<p>Suppose <span class="math inline">\(\bm{p}\in \mathbb{R}^{n}\)</span> is a probability vector represent each state, as there is only <span class="math inline">\(n\)</span> states, we can use it to represent probability measure. Then
+<span class="math display">\[
+\mathop{{}\mathbb{E}}_{}S_T=\bm{Dp}
+\]</span>
+take <span class="math inline">\(\bm{p=\frac{\psi}{e&#39;\psi}}\)</span>. Then
+<span class="math display">\[
+\mathop{{}\mathbb{E}}_{}S_T=\bm{\frac{D\psi}{e&#39;\psi}}=\bm{\frac{S_0}{e&#39;\psi}}
+\]</span>
+thus <span class="math inline">\(\bm{e&#39;\psi}\)</span> is the discount on riskless borrowing. If probability vector <span class="math inline">\(\bm{p}\)</span> also let <span class="math inline">\(\mathop{{}\mathbb{E}}_{}S_{T}\)</span> have the same value, we said it’s a risk-neutral probability measure.</p>
+<p>A claim <span class="math inline">\(C\in \mathbb{R}^{n}\)</span> and it’s said to be attainable or can be hedged if there is a portfolio <span class="math inline">\(\theta\)</span> that <span class="math inline">\(\bm{D&#39;\theta}=C\)</span>.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-12" class="theorem"><strong>Theorem 2.4  () </strong></span>With absence of arbitrage, the price of an attainable claim <span class="math inline">\(C\in \mathbb{R}^{n}\)</span> is <span class="math inline">\(\bm{e&#39;\psi}\mathop{{}\mathbb{E}}_{}C\)</span> if <span class="math inline">\(\bm{S_0}=\bm{e&#39;\psi}\mathop{{}\mathbb{E}}_{}S_T\)</span> for some probability measure <span class="math inline">\(\bm{\psi}\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-13" class="proof"><em>Proof</em>. </span>Suppose <span class="math inline">\(\bm{D&#39;\theta=C}\)</span>, then its price should be <span class="math inline">\(\bm{\theta&#39;S_0}\)</span>
+<span class="math display">\[
+\mathop{{}\mathbb{E}}_{}C=\mathop{{}\mathbb{E}}_{}\bm{D&#39;\theta}=\frac{\bm{\theta&#39;D\psi}}{\bm{e&#39;\psi}}=\bm{\theta&#39; S_0}
+\]</span></p>
+</div>
+<p>A market is said to be complete if every claim <span class="math inline">\(C\)</span> is attainable.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-14" class="theorem"><strong>Theorem 2.5  () </strong></span>The market in our setting is complete iff <span class="math inline">\(N\ge n\)</span> and <span class="math inline">\(\bm{D}\)</span> have full column rank.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-15" class="proof"><em>Proof</em>. </span>Completeness is precisely equivalent row space <span class="math inline">\(\mathcal{C}(\bm{D&#39;})=\mathbb{R}^{n}\)</span> and then claim follows.</p>
+</div>
+<p>In complete market, risk-neutral measure is unique.</p>
+</div>
+<div id="discrete-martingale" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Discrete Martingale</h2>
+<p>Under risk-neutral measure, for each time <span class="math inline">\(k\)</span>, we have
+<span class="math display">\[
+\psi_{0}\mathop{{}\mathbb{E}}_{k}{S}_{k+1}=S_{k}
+\]</span>
+thus if we define the discounted stock price as <span class="math inline">\(\widetilde{S}_{k}=\psi_0^{k} S_{k}\)</span>(where each <span class="math inline">\(\psi_0\)</span> can be vary by time so it should be <span class="math inline">\(\prod_{i=1} ^{k} \psi_{0,k}\)</span> but we abuse notation here), then <span class="math inline">\(\widetilde{S}\)</span> became a martingale. That implies the discounted claim <span class="math inline">\(\widetilde{V}\)</span> is also a martingale.</p>
+<p>Now let <span class="math inline">\((\varphi_n,\psi_n)\)</span> be the amount of stock and bound at time <span class="math inline">\(n\)</span>, the portfolio we holding value:
+<span class="math display">\[
+V_n=\varphi_{n}S_n+\psi_{n}B_n
+\]</span>
+since the portfolio is self-financing, the should equal to the value at the start of <span class="math inline">\(n+1\)</span>(when the price is remain the same):
+<span class="math display">\[
+V_n=\varphi_{n+1}S_n+\psi_{n+1}B_n
+\]</span>
+Put them together and take discount, we have
+<span class="math display">\[
+\widetilde{V}_n=\varphi_{n+1}\widetilde{S}_{n}+\psi_{n+1}=\varphi_{n}\widetilde{S}_{n}+\psi_{n}
+\]</span>
+we have
+<span class="math display">\[
+\widetilde{V}_{n+1}-\widetilde{V}_n=\varphi_{n+1}(\widetilde{S}_{n+1}-\widetilde{S}_n)
+\]</span>
+By induction we have
+<span class="math display">\[
+\widetilde{V}_n=V_0+\sum_{i=0}^{n-1}\varphi_{i+1}(\widetilde{S}_{i+1}-\widetilde{S}_{i})
+\]</span>
+that is a martingale by invoking following lemma:</p>
+<div class="lemma">
+<p><span id="lem:unlabeled-div-16" class="lemma"><strong>Lemma 2.1  () </strong></span>Suppose process <span class="math inline">\(X=\left\{ X_{t} \right\}_{t\in \mathbb{N}}\)</span> is adapted to <span class="math inline">\(\mathbb{F}=\left\{ \mathcal{F}_t \right\}_{t \in \mathbb{N}}\)</span> and <span class="math inline">\(\left\{ \varphi_i \right\}_{i \in \mathbb{N^{+}}}\)</span> is <span class="math inline">\(\mathbb{F}\)</span>-predictable. Then
+<span class="math display">\[
+\left\{ Z_n\triangleq Z_0+\sum_{i=0}^{n-1}\varphi_{i+1}(X_{i+1}-X_i) \right\}_{n \in \mathbb{N}}
+\]</span>
+is a martingale if so is <span class="math inline">\(X\)</span>.</p>
+</div>
+<p>Now we turn to stocks market consist <span class="math inline">\(N\)</span> stocks, construct sample space as <span class="math inline">\(\Omega\)</span> be all possible path <span class="math inline">\((\mathbb{R}^{N})^{T}\)</span>. The absence of arbitrage give a risk-neutral measure for which
+<span class="math display">\[
+S_{t-1}=\psi_{0}\mathop{{}\mathbb{E}}_{S_{t-1}}S_{t}
+\]</span>
+and as before, take discount <span class="math inline">\(\widetilde{S}_{t}=\psi_{0}^{t}S_{t}\)</span> we have a martingale. And we claim that absence of martingale is equivalent to existence of risk-neutral measure.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Fincial Modeling Analysis.pdf", "Fincial Modeling Analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

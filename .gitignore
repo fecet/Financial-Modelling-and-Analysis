@@ -1,5 +1,6 @@
 .Rproj.user/
-_book/libs
+_book/libs/
+rsconnect/
 
 .Rhistory
 FinModAlys.Rproj

@@ -1,0 +1,74 @@
+---
+title: Homework 4
+author:
+  - Xie zejian
+bibliography: references.bib
+date: "Last compiled on `r format(Sys.time(), '%H:%M, %d %B, %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: false
+    includes:
+      in_header: preamble.tex
+    latex_engine: xelatex
+---
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+As we have
+$$
+1=A \mathop{{}\mathbb{E}}_{}R^{\theta}-B \mathop{\text{Cov}}\left[R^{\theta},e \right]
+$$
+Let $\theta=\theta^{0}$, we have
+$$
+1=A \mathop{{}\mathbb{E}}_{}R^{0}
+$$
+thus we have
+$$
+\mathop{{}\mathbb{E}}_{}(R^{\theta}-R^{0}) \propto \mathop{\text{Cov}}\left[R^{\theta},e \right]
+$$
+From $\left\{ R^{\theta}:\theta\in \mathbb{R}^{N} \right\}$ is a linear space, we have
+$$
+\mathop{\text{Cov}}\left[e-R^{M},R^{\theta} \right]=0
+$$
+that implies $\mathop{\text{Cov}}\left[R^{\theta},e \right]=\mathop{\text{Cov}}\left[R^{\theta},R^{M} \right]$. Thus
+$$
+\frac{\mathop{{}\mathbb{E}}_{} \left( R^{\theta}-R^{0} \right)}{\mathop{{}\mathbb{E}}_{}\left(  R^{M}-R^{0}\right)}=\frac{\mathop{\text{Cov}}\left[R^{\theta},R^{M} \right]}{\mathop{\text{Var}}R^{M}}=\beta_\theta
+$$
+
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+The state price is given by
+$$
+\psi=\bm{D^{-1}q}=\frac{1}{1+r}\begin{bmatrix}
+                 \frac{1+r-d}{(u-d)}	\\
+                 \frac{-1-r+u}{(u-d)}	\\
+             \end{bmatrix}
+$$
+And this option is $C=(uS_0-K,0)'$, thus the price is given by
+$$
+\mathop{{}\mathbb{E}}_{}\pi \mathop{{}\mathbb{E}}_{}^{\mathbb{Q}}C=C'\psi=\frac{1}{1+r} \frac{1+r-d}{u-d} (uS_0-K)
+$$
+
+:::
+
+

@@ -4,11 +4,11 @@
 ## Simple Example
 
 Suppose one buy a call option $C$ which payoff $V_1=(S_1-K)^{+}$ at time $1$, $S_1$
-can be $uS_0>K$ or $dS_0<K$ determined in probability space $(\left\{ H,T \right\},2^{\left\{ H,T \right\}},\mathop{{}\mathbb{P}})$.
+can be $uq>K$ or $dq<K$ determined in probability space $(\left\{ H,T \right\},2^{\left\{ H,T \right\}},\mathop{{}\mathbb{P}})$.
 To replicate such option, we construct our portfolio by buying
 $\Delta_0$ stock and investing remaining in risk-free asset at return $r$:
 $$
-(V_0-\Delta_0S_0)(1+r)+\Delta_0S_1=(S_1-K)^{+}
+(V_0-\Delta_0q)(1+r)+\Delta_0S_1=(S_1-K)^{+}
 $$
 solve:
 $$
@@ -21,23 +21,23 @@ $p$ and $q$ can be then seen as probability assigned to $\mathop{{}\mathbb{P}}\l
 
 ## State price
 
-Suppose $\bm{S_0}\in \mathbb{R}^{N}$ is price of $N$ stocks at time $0$, 
+Suppose $\bm{q}\in \mathbb{R}^{N}$ is price of $N$ stocks at time $0$, 
 and $\bm{D}\in \mathbb{R}^{N\times n}$ is their price at time $t$ for $n$ states. 
-For any portfolio $\bm{\theta}\in \mathbb{R}^{N}$, it cost $\bm{S_0'\theta}$ and 
-its value is $\bm{D'\theta}\in \mathbb{R}^{n}$ for all $n$ states. 
+For any portfolio $\bm{\theta}\in \mathbb{R}^{N}$, it's market value is $\bm{q'\theta}$ and 
+its payoff is $\bm{D'\theta}\in \mathbb{R}^{n}$ for all $n$ states. 
 
 An arbitrage is then defined as a portfolio $\theta, s.t.$ $\bm{S'\theta}$ have different sign with $\bm{D'\theta}$.
 
 
 ::: {.definition  name="State price"}
 
-A state price vector is $\bm{\psi} \in \mathbb{R}_{++}^{n}$ $s.t.$ $\bm{S_0}=\bm{D\psi}$.
+A state price vector is $\bm{\psi} \in \mathbb{R}_{++}^{n}$ $s.t.$ $\bm{q}=\bm{D\psi}$.
 
 :::
 
 To justify the name of state price, suppose we want to "bet" the state of market, $i.e.$, we would like earning $\bm{1}_{state=i}$, then our portfolio supposed to be $\bm{D'\theta}=\bm{e_i}$, and it cost
 $$
-\bm{S_0'\theta}=\bm{\psi'D'\theta=\psi'e_i=}\psi_i
+\bm{q'\theta}=\bm{\psi'D'\theta=\psi'e_i=}\psi_i
 $$
 so the coordinate of $\bm{\psi}$ is the price of "betting" a state.
 
@@ -65,87 +65,22 @@ Any continuous linear function $f$ on Hilbert space $\mathcal{H}$ can be written
 
 :::: {.proof}
 
-Let $M=\left\{ (-\bm{S_0'\theta},\bm{D'\theta}):\theta \in \mathbb{R}^{N} \right\}$ and $K=\mathbb{R}_{+}\times \mathbb{R}_{+}^{n}$. Then there is no arbitrage iff $K\cap M=\left\{ \bm{0} \right\}$.
+Let $M=\left\{ (-\bm{q'\theta},\bm{D'\theta}):\theta \in \mathbb{R}^{N} \right\}$ and $K=\mathbb{R}_{+}\times \mathbb{R}_{+}^{n}$. Then there is no arbitrage iff $K\cap M=\left\{ \bm{0} \right\}$.
 
 $\implies$, let $f$ be the functional in theorem \@ref(thm:SPH), note $M$ is a linear space, $f$ should be vanish on $M$, $i.e.$, $f(x)=0,\forall x \in M$, otherwise, fix $f(y)>0$ for $y\in K-\left\{ 0 \right\}$, we can find $\lambda \in \mathbb{R}$ $s.t.$ $\lambda f(x)=f(\lambda x)>f(y)$.
 
 Then by theorem \@ref(thm:riesz), we have $f(x)=x'v$ for some $v$, write $v=(\alpha,\phi)$ where $\alpha\in \mathbb{R}$ and $\phi \in \mathbb{R}^{n}$. Since $f(x)>0$ for nonzero $x \in K$, $\alpha$ and $\phi$ should strictly positive, then
 $$
-- \alpha \bm{S_0'\theta}+\bm{\phi'D'\theta}=0
+- \alpha \bm{q'\theta}+\bm{\phi'D'\theta}=0
 $$
-which implies $-\alpha \bm{S_0}+\bm{D\phi}=\bm{0}$ and thus $\frac{\phi}{\alpha}$ is a state price vector as required.
+which implies $-\alpha \bm{q}+\bm{D\phi}=\bm{0}$ and thus $\frac{\phi}{\alpha}$ is a state price vector as required.
 
-$\impliedby$, Suppose $(-\bm{S_0'\theta},\bm{D'\theta}) \in K$, then, $\bm{\psi'D'\theta}\le 0$ and $\bm{D'\theta}$, which contrast to $\psi \gg 0$.
+$\impliedby$, Suppose $(-\bm{q'\theta},\bm{D'\theta}) \in K$, then, $\bm{\psi'D'\theta}\le 0$ and $\bm{D'\theta}$, which contrast to $\psi \gg 0$.
 
 
 ::::
 
 
-::: {.exercise  name=""}
-
-1
-
-:::
-
-
-::: {.solution}
-
-Given above.
-
-:::
-
-
-::: {.exercise  name=""}
-
-2
-
-:::
-
-
-::: {.solution}
-
-Setup:
-$$
-\bm{S_0}=(1,S_0)', \bm{D}=\begin{bmatrix}
-                              1+r	& 1+r	\\
-                              uS_0	& dS_0	\\
-                          \end{bmatrix}
-$$
-then the state price should be
-$$
-\bm{\psi}=\bm{D^{-1}S_0}=[(-u+1+r)S_0,(d-1-r)S_0]'\gg 0
-$$
-then claim follows.
-
-:::
-
-
-::: {.exercise  name=""}
-
-3
-
-:::
-
-
-::: {.solution}
-
-No. Let $\psi=(\frac{1}{3},\frac{1}{3})$, it's a state price vector.
-
-:::
-
-
-::: {.exercise  name=""}
-
-4
-
-:::
-
-
-::: {.solution}
-
-Note column space of $D$ is just $\left\{ \lambda\cdot(1,2,3)': \lambda \in \mathbb{R} \right\}$, which excluded $\overline{q}$, therefore there is no state price vector and thus arbitrage exists.
-
-:::
 
 ### Risk-neutral probability
 
@@ -155,13 +90,13 @@ $$
 $$
 take $\bm{p=\frac{\psi}{e'\psi}}$. Then
 $$
-\mathop{{}\mathbb{E}}_{}S_T=\bm{\frac{D\psi}{e'\psi}}=\bm{\frac{S_0}{e'\psi}}
+\mathop{{}\mathbb{E}}_{}S_T=\bm{\frac{D\psi}{e'\psi}}=\bm{\frac{q}{e'\psi}}
 $$
 where $\bm{e'\psi}$ is the discount on riskless borrowing. To confirm this, suppose the market allow positive riskless borrowing and we replicate it by investing a portfolio $\bm{\theta}$ for which
 $$
 \bm{D'\theta=e}
 $$
-and $\bm{\theta}$ cost $\bm{S_0'\theta=\psi'D'\theta=e'\psi}$. That is $\bm{\psi_0}=\bm{e'\theta}$ is the riskless discount, $\text{ i.e. } \frac{1}{\psi_0}=e^{rT}$. 
+and $\bm{\theta}$ cost $\bm{q'\theta=\psi'D'\theta=e'\psi}$. That is $\bm{\psi_0}=\bm{e'\theta}$ is the riskless discount, $\text{ i.e. } \frac{1}{\psi_0}=e^{rT}$. 
 
 If probability vector $\bm{p}$ also let $\mathop{{}\mathbb{E}}_{}S_{T}$ have the same value, we said it's a risk-neutral probability measure.
 
@@ -171,16 +106,16 @@ A claim $C\in \mathbb{R}^{n}$ and it's said to be attainable or can be hedged if
 
 ::: {.theorem  name=""}
 
-With absence of arbitrage, the price of an attainable claim $C\in \mathbb{R}^{n}$ is $\bm{e'\psi}\mathop{{}\mathbb{E}}_{}C$ if $\bm{S_0}=\bm{e'\psi}\mathop{{}\mathbb{E}}_{}S_T$ for some probability measure $\bm{\psi}$.
+With absence of arbitrage, the price of an attainable claim $C\in \mathbb{R}^{n}$ is $\bm{e'\psi}\mathop{{}\mathbb{E}}_{}C$ if $\bm{q}=\bm{e'\psi}\mathop{{}\mathbb{E}}_{}S_T$ for some probability measure $\bm{\psi}$.
 
 :::
 
 
 :::: {.proof}
 
-Suppose $\bm{D'\theta=C}$, then its price should be $\bm{\theta'S_0}$
+Suppose $\bm{D'\theta=C}$, then its price should be $\bm{\theta'q}$
 $$
-\mathop{{}\mathbb{E}}_{}C=\mathop{{}\mathbb{E}}_{}\bm{D'\theta}=\frac{\bm{\theta'D\psi}}{\bm{e'\psi}}=\bm{\theta' S_0}
+\mathop{{}\mathbb{E}}_{}C=\mathop{{}\mathbb{E}}_{}\bm{D'\theta}=\frac{\bm{\theta'D\psi}}{\bm{e'\psi}}=\bm{\theta' q}
 $$
 
 ::::
@@ -204,17 +139,17 @@ In complete market, risk-neutral measure is unique.
 
 ## Optimality and Asset Pricing
 
-Suppose the market $(\bm{D,S_0})$ is given, an agent is defined by an utility function $U:\mathbb{R}^{n}\to \mathbb{R}$ and an endowment $\bm{\varepsilon}\in \mathbb{R}^{n}_{+}$. Our optimal target is
+Suppose the market $(\bm{D,q})$ is given, an agent is defined by an utility function $U:\mathbb{R}^{n}\to \mathbb{R}$ and an endowment $\bm{\varepsilon}\in \mathbb{R}^{n}_{+}$. Our optimal target is
 $$
 \max _{\theta \in A} U(\bm{\varepsilon+D'\theta}) 
 $$
 where
 $$
-A=\left\{ \bm{S_0'\theta}\le 0, \bm{\varepsilon+D'\theta \ge  0} \right\}
+A=\left\{ \bm{q'\theta}\le 0, \bm{\varepsilon+D'\theta \ge  0} \right\}
 $$
-and we assume there is $\bm{\theta _0} \text{ s.t. } \bm{D'\theta_0}>0$, that along with absence of arbitrage implies the optimal $\theta^*$ satisfy $\bm{S_0'\theta}=0$, otherwise we can invest some on $\bm{\theta_0}$ and get a better portfolio.
+and we assume there is $\bm{\theta _0} \text{ s.t. } \bm{D'\theta_0}>0$, that along with absence of arbitrage implies the optimal $\theta^*$ satisfy $\bm{q'\theta}=0$, otherwise we can invest some on $\bm{\theta_0}$ and get a better portfolio.
 
-Note $A=\left\{  \bm{S_0'\theta}= 0, \bm{\varepsilon+D'\theta \ge  0}  \right\}$ is closed and bounded if there is no arbitrage and assume $U$ is continuous, we have 
+Note $A=\left\{  \bm{q'\theta}= 0, \bm{\varepsilon+D'\theta \ge  0}  \right\}$ is closed and bounded if there is no arbitrage and assume $U$ is continuous, we have 
 
 
 ::: {.proposition  name=""}
@@ -233,7 +168,7 @@ There exist $\lambda>0 \text{ s.t. }$ $\lambda \nabla U(\bm{c}^{*})$ is a state 
 
 :::: {.proof}
 
-Suppose $\bm{\theta^{*}}$ is solution, for any portfolio $\bm{\theta}  \text{ s.t. } \bm{S_0'\theta}=0$, if we combine $\bm{\theta^{*}}$ and $\bm{\theta}$, utility will be
+Suppose $\bm{\theta^{*}}$ is solution, for any portfolio $\bm{\theta}  \text{ s.t. } \bm{q'\theta}=0$, if we combine $\bm{\theta^{*}}$ and $\bm{\theta}$, utility will be
 $$
 g(\alpha)=U[\varepsilon+\bm{D'}(\bm{\theta^{*}}+\alpha \bm{\theta})]=U(\bm{c^{*}}+\alpha \bm{D'\theta})
 $$
@@ -243,7 +178,7 @@ g'(0)=\left[ \nabla U(\bm{c}^{*}) \right]'\bm{D'\theta}=[\bm{D}\nabla U(\bm{c}^{
 $$
 that implies $\bm{D}\nabla  U(\bm{c^{*}})=\mu \bm{S}_{0}$ for some $\mu \in \mathbb{R}$. It's remaining to show that $\mu>0$. Take $\bm{\theta_0}$ in assumption, we have
 $$
-\mu \bm{S_0'\theta_0}=\left[ \nabla U(\bm{c}^{*}) \right]'\bm{D'\theta_0}>0
+\mu \bm{q'\theta_0}=\left[ \nabla U(\bm{c}^{*}) \right]'\bm{D'\theta_0}>0
 $$
 thus $\mu>0$ as required.
 
@@ -277,7 +212,7 @@ $$
 $$
 theorem \@ref(thm:utility-state) yields
 $$
-\bm{S_0}=\bm{D\psi}=\lambda \bm{D} \nabla U(\bm{c}^{*})= \mathop{{}\mathbb{E}}_{} \left[ \lambda S_{T}\cdot u'(c) \right] 
+\bm{q}=\bm{D\psi}=\lambda \bm{D} \nabla U(\bm{c}^{*})= \mathop{{}\mathbb{E}}_{} \left[ \lambda S_{T}\cdot u'(c) \right] 
 $$
 where
 $$
@@ -289,154 +224,93 @@ p_2u'(c_2)	\\
 p_nu'(c_n)	\\
 \end{bmatrix}
 $$
-thus we can define risk-neutral measure $\mathbb{Q}$ by $\bm{\psi}$,$\bm{S_0}=\frac{1}{\psi_0}\mathop{{}\mathbb{E}}_{}^{\mathbb{Q}}S_{T}$.
+thus we can define risk-neutral measure $\mathbb{Q}$ by $\bm{\psi}$,$\bm{q}=\psi_0\mathop{{}\mathbb{E}}_{}^{\mathbb{Q}}S_{T}$.
 
 
-::: {.exercise  name=""}
 
-Given market
-$$
-\bm{D}=\begin{bmatrix}
-           10	& 	0\\
-           0    &10     \\
-       \end{bmatrix}, 
-       \bm{S_0}=\begin{bmatrix}
-                                   4    \\
-                                   2    \\
-                               \end{bmatrix}
-$$
-and agent
-$$
-U(\bm{x})=\log x_1+\log x_2, 
-\bm{\varepsilon}=\begin{bmatrix}
-    1   \\
-    100 \\
-\end{bmatrix} 
-$$
+Set $\bm{\pi}=[\pi_{i}=\psi_{i}/p_{i}]$, then $\mathop{{}\mathbb{E}}_{}\bm{\pi}=\psi_0$ and $\bm{q}=\mathop{{}\mathbb{E}}_{}S_{T}\pi$
+
+
+::: {.remark}
+
+We use boldface to refer the vector representation of a random variable.
+
+:::
+
+In fact, for any attainable claim $C$, we have
+
+
+::: {.theorem  name=""}
+
+The price of $C$ is given by $\mathop{{}\mathbb{E}}_{}\pi \mathop{{}\mathbb{E}}_{}^{Q}C$
 
 :::
 
 
-::: {.solution}
+:::: {.proof}
 
-All the state price vector is given by:
+Suppose $C$ can be attain by $\theta$, then
 $$
-\bm{\psi}\in \left\{ \bm{D^{-1}S_0}=\frac{1}{10}\bm{S_0} \right\}
-$$
-by \@ref(cor:concave-iff) we have
-$$
-\lambda \nabla U(\bm{c^{*}})=
-\lambda \begin{bmatrix}
-     \frac{1}{c_1}	\\
-     \frac{1}{c_2}	\\
- \end{bmatrix}=
-\lambda \begin{bmatrix}
-     \frac{1}{1+10\theta_1}	\\
-     \frac{1}{100+10\theta_2}	\\
- \end{bmatrix}=\frac{1}{10} \bm{S_0}
-$$
-also $4\theta_1+2\theta_2=0$, we have
-$$
-\bm{\theta}=\begin{bmatrix}
-                \frac{49}{20}	\\
-                -\frac{49}{10}	\\
-            \end{bmatrix}, \lambda=10.2
-$$
-the risk-neutral probability is $\bm{p}=[\frac{2}{3},\frac{1}{3}]'$ and thus the price of $X$ is
-$$
-\bm{p'X}=15
+q'\theta=[\mathop{{}\mathbb{E}}_{}S_{T}\pi]'\theta=\mathop{{}\mathbb{E}}_{}\pi S_{T}'\theta=\mathop{{}\mathbb{E}}_{}\pi C=\psi_0 \mathop{{}\mathbb{E}}_{}^{Q}C=\mathop{{}\mathbb{E}}_{}\pi\mathop{{}\mathbb{E}}_{}^{Q}C
 $$
 
-:::
+::::
+
+### Returns
+
+For portfolio $\theta$, its return is given by
+$$
+\bm{R}=\frac{\bm{D'\theta}}{\bm{q'\theta}}\in \mathbb{R}^{n}
+$$
+Note
+$$
+\mathop{{}\mathbb{E}}_{}\pi R= \frac{\mathop{{}\mathbb{E}}_{}\pi S_{T}'\theta}{q'\theta}=\frac{\left( \mathop{{}\mathbb{E}}_{}S_{T}\pi \right)'\theta}{q'\theta}=1
+$$
+And we we assume there exist a portfolio such that all coordinate of $\bm{R}$ is identical, that constant is called risk-free return $R_{f}$, then we have
 
 
-::: {.exercise  name=""}
+::: {.theorem  name=""}
 
-Given market
+With absence of arbitrage, for any $\theta$:
 $$
-\bm{D}=\begin{bmatrix}
- 20&          0	& 	2\\
-    0&       10    &1     \\
-       \end{bmatrix}, 
-       \bm{S_0}=\begin{bmatrix}
-                                   4    \\
-                                   2    \\
-                               \end{bmatrix}
+\mathop{{}\mathbb{E}}_{}R-R_{f}=- \frac{\mathop{\text{Cov}}\left[R,\pi \right]}{\mathop{{}\mathbb{E}}_{}\pi}
 $$
-and agent
-$$
-U(\bm{x})=x_1^{\alpha}+x_2^{\alpha}+x_3^{\alpha}, 
-\bm{\varepsilon}=\begin{bmatrix}
-    10   \\
-    50 
-    \\  
-    100 \\
-\end{bmatrix} 
-$$
-
-:::
-
-
-::: {.solution}
-
-All the state price vector is given by
-$$
-\bm{\psi}\in \left\{ 
-\begin{bmatrix}
-    0	\\
-    0	\\
-    2	\\
-\end{bmatrix}+
-x\begin{bmatrix}
-    1	\\
-    1	\\
-    -10	\\
-\end{bmatrix}
-:x\in (0,\frac{1}{5})
-\right\}
-$$
-and
-$$
-\bm{c^{*}}=\begin{bmatrix}
-               10+20\theta_1	\\
-               50+10\theta_2	\\
-               100+2\theta_1+\theta_2	\\
-           \end{bmatrix}, \lambda \nabla U(\bm{c^{*}})=\lambda \alpha
-           \begin{bmatrix}
-               c_1^{\alpha-1}	\\
-               c_2^{\alpha-1}	\\
-               c_3^{\alpha-1}	\\
-           \end{bmatrix}
-$$
-Note the first two coordinate keep the same, thus $\bm{\theta}=(1,-2)'$. Therefore
-$$
-\left( \frac{10}{3} \right)^{\alpha-1}=\frac{2-10x}{x}\implies x=\frac{2\cdot 3^{\alpha-1}}{10^{\alpha-1}+10\cdot 3^{\alpha-1}}
-$$
-and hence:
-$$
-\lambda=\frac{x}{\alpha 30^{\alpha-1}}=
-\frac{\frac{2}{\alpha}\cdot 10^{1-\alpha}}{10^{\alpha-1}+10\cdot 3^{\alpha-1}}
-$$
-The risk-neutral probability and the price is given by
-$$
-\bm{p}=\frac{1}{2\cdot 3^{\alpha-1}+10^{\alpha-1}}\left[ 3^{\alpha-1},3^{\alpha-1},10^{\alpha-1} \right]',
-$$
-
-$$
-\bm{X'p}=\frac{25\cdot 3^{\alpha-1}+10\cdot10^{\alpha-1}}{2\cdot 3^{\alpha-1}+10^{\alpha-1}}
-$$
-
-
-
-
-
-
 
 
 :::
 
 
+:::: {.proof}
 
+Note $\mathop{{}\mathbb{E}}_{}\pi R=\mathop{{}\mathbb{E}}_{}\pi R_{f}=1$
+$$
+\begin{aligned}
+    \mathop{\text{Cov}}\left[R,\pi \right]&= \mathop{{}\mathbb{E}}_{}\pi R-\mathop{{}\mathbb{E}}_{}\pi\mathop{{}\mathbb{E}}_{}R=R_{f}\mathop{{}\mathbb{E}}_{}\pi-\mathop{{}\mathbb{E}}_{}R\mathop{{}\mathbb{E}}_{}\pi
+\end{aligned}
+$$
+
+::::
+
+
+
+
+### Equilibrium
+
+
+::: {.definition  name=""}
+
+Equilibrium is a pair $(\bm{\theta_{i}})_{i\le m},q$, where $\bm{\theta}_{i}$ maximize each one's utility and $\sum_{}^{}\bm{\theta}_{i}=\bm{0}$.
+
+:::
+
+If each person invest $\bm{\theta}_{i}$, then we allocate $\bm{c}_{i}=\bm{\varepsilon}_{i}+\bm{S_{T}'\theta_{i}}$ for each one, and therefore we can define Pareto optimal etc.
+
+
+::: {.theorem  name="The First Welfare Theorem"}
+
+Under complete market, equilibrium is Pareto optimal.
+
+:::
 
 
 

@@ -1,0 +1,58 @@
+---
+title: Homework 3
+author:
+  - Xie zejian
+bibliography: references.bib
+date: "Last compiled on `r format(Sys.time(), '%H:%M, %d %B, %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: false
+    includes:
+      in_header: preamble.tex
+    latex_engine: xelatex
+---
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+Suppose the first one's portfolio is $\bm{\theta}=(\theta_1,\theta_2)$, then
+$$
+\frac{\theta_1+\theta_2+0.5}{2} + 
+\frac{3\theta_1+\theta_2+1.5}{2} - \alpha(q_1\theta_1+q_2\theta_2)
+$$
+FOC implies that:
+$$
+\begin{cases}
+    2 = \alpha q_1 \\
+    1=\alpha q_2
+\end{cases} \implies q_1=2q_2
+$$
+The second should invest $( -\theta_1,-\theta_2)$ and hence
+$$
+\frac{\sqrt{-\theta_1-\theta_2+\frac{1}{2}}}{2}+
+\frac{\sqrt{-3\theta_1-\theta_2+\frac{3}{2}}}{2}-\beta(q_1\theta_1+q_2\theta_2)
+$$
+FOC and $q_1=2q_2$ implies
+$$
+\sqrt{-\theta_1-\theta_2+\frac{1}{2}}=
+\sqrt{-3\theta_1-\theta_2+\frac{3}{2}}
+$$
+it follows that $\theta_1=\frac{1}{2}$. Hence, the equilibrium is
+$$
+\theta_1=\left( \frac{1}{2},-1 \right),
+\theta_2=\left(- \frac{1}{2},1 \right), q=\left( 2\alpha,\alpha \right)
+$$
+
+
+
+
+
+:::
+

@@ -1,0 +1,45 @@
+# General one-period asset pricing model
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+
+Suppose $\bm{q}\in \mathbb{R}^{N}$ is price of $N$ stocks at time $0$, 
+and $\bm{D}\in \mathbb{R}^{N\times n}$ is their price at time $t$ for $n$ states. 
+For any portfolio $\bm{\theta}\in \mathbb{R}^{N}$, it's market value is $\bm{q'\theta}$ and 
+its payoff is $\bm{D'\theta}\in \mathbb{R}^{n}$ for all $n$ states. 
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+
+An arbitrage is then defined as a portfolio $\theta, s.t.$ $\bm{S'\theta}$ have different sign with $\bm{D'\theta}$ and a state price vector is $\bm{\psi} \in \mathbb{R}_{++}^{n}$ $s.t.$ $\bm{q}=\bm{D\psi}$.
+
+There is no arbitrage iff there is a state price vector.
+
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::

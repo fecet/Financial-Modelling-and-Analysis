@@ -1,5 +1,18 @@
-# General one-period asset pricing model
+---
+title: Problems set
+author:
+  - Xie zejian
+bibliography: references.bib
+date: "Last compiled on `r format(Sys.time(), '%H:%M, %d %B, %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: false
+    includes:
+      in_header: preamble.tex
+    latex_engine: xelatex
+---
 
+# General one-period asset pricing model
 
 ::: {.exercise  name=""}
 
@@ -28,7 +41,6 @@ $\quad$
 
 ::: {.solution}
 
-
 An arbitrage is then defined as a portfolio $\theta, s.t.$ $\bm{S'\theta}$ have different sign with $\bm{D'\theta}$ and a state price vector is $\bm{\psi} \in \mathbb{R}_{++}^{n}$ $s.t.$ $\bm{q}=\bm{D\psi}$.
 
 There is no arbitrage iff there is a state price vector.
@@ -43,3 +55,508 @@ There is no arbitrage iff there is a state price vector.
 $\quad$
 
 :::
+
+
+::: {.solution}
+
+Suppose the market allow positive riskless borrowing and we replicate it by investing a portfolio $\bm{\theta}$ for which
+$$
+\bm{D'\theta=e}
+$$
+and $\bm{\theta}$ cost $\bm{q'\theta=\psi'D'\theta=e'\psi}$. That is $\bm{\psi_0}:=\bm{e'\psi}$ is the riskless discount, $\text{ i.e. } \frac{1}{\psi_0}=e^{rT}$. Thus $\bm{p=\frac{\psi}{e'\psi}}$ is called the **risk-neutral probability measure**. The stochastic discount factor is then defined as $\bm{\pi}=[\pi_{i}=\psi_{i}/p_{i}]$.
+
+A state-price deflator is also called state-price density,state-price kernel or stochastic discount factor, which includes both the time discount and risk discount meanwhile.
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+
+It's price is given by
+$$
+X'\psi=\mathop{{}\mathbb{E}}_{}\pi X=\mathop{{}\mathbb{E}}_{}\pi\mathop{{}\mathbb{E}}_{}^{\mathbb{Q} }X
+$$
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+We have
+$$
+\bm{q}=\begin{bmatrix}
+           S_0	\\
+           B_0	\\
+       \end{bmatrix},
+\bm{D}=\begin{bmatrix}
+           \alpha S_0	& \beta S_0	\\
+           (1+r)B_0	& (1+r)B_0	\\
+       \end{bmatrix}
+$$
+There is no arbitrage iff $(1+r)\in (\beta,\alpha)$ or $(1+r)\in (\alpha,\beta)$.
+
+Then we derive the state prices
+$$
+\psi=\frac{1}{1+r}\begin{bmatrix}
+       \frac{1+r-\beta}{\alpha-\beta}  	\\
+       \frac{\alpha-1-r}{\alpha-\beta} 	\\
+     \end{bmatrix}
+$$
+and thus the risk-neutral probability is
+$$
+\hat{\psi}=\begin{bmatrix}
+       \frac{1+r-\beta}{\alpha-\beta}  	\\
+       \frac{\alpha-1-r}{\alpha-\beta} 	\\
+     \end{bmatrix}
+$$
+
+
+
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+Suppose the dividend-price pair $(\bm{D},\bm{q})$ is given. An **agent** is defined by a strictly increasing utility function $U:\mathbb{R}_{+}^{n}\to \mathbb{R}$ and an **endowment** $\bm{\varepsilon} \in \mathbb{R}^{n}_{+}$, This leaves the **budget-feasible set** :
+$$
+X(\bm{q},\bm{\varepsilon})=\left\{ \bm{\varepsilon+D'\theta}\in \mathbb{R}_{+}^{n}:\bm{\theta}\in \mathbb{R}^{N}, \bm{q'\theta}\le 0 \right\} 
+$$
+
+The model is
+$$
+\sup _{\bm{c}\in X(\bm{q,\varepsilon})}U(\bm{c})
+$$
+Asset pricing can be reduced to solving a optimization problem.
+
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+
+::: {.solution}
+
+
+$$
+\bm{D}=\begin{bmatrix}
+           1	& 0	\\
+           0	& 1	\\
+           0	& 0	\\
+       \end{bmatrix}
+$$
+
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+Suppose $\theta$ is the portfolio, then
+$$
+\bm{C}=\bm{\varepsilon}+\bm{D'\theta}=\begin{bmatrix}
+1+\theta_1+2\theta_2\\
+2+2\theta_1+4\theta_2 	\\
+\frac{1}{2}+3\theta_1+\theta_2	\\
+\end{bmatrix}
+$$
+And all the state price is given by
+$$
+\bm{\psi}=(\psi_1,\frac{7-5\psi_1}{10},\frac{1}{5})
+$$
+As we have
+$$
+\lambda \nabla U(\bm{C})=\bm{\psi}
+$$
+we then derive
+$$
+\begin{cases}
+    \bm{\theta}=(\frac{6}{7},-\frac{4}{7})'\\
+    \bm{C}=(\frac{5}{7},\frac{10}{7},\frac{5}{2}    )' \\
+    \bm{\psi}=(\frac{7}{10},\frac{7}{20},\frac{1}{5} )'
+\end{cases}
+$$
+
+
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+:::: {.solution}
+
+
+::: {.definition  name="equilibrium"}
+
+An **equilibrium** for the **economy** $[(U_i,\varepsilon^{i})_{i}^{m},\bm{D}]$ is a collection $[(\theta)_{i}^{m}],\bm{q}$ $\text{ s.t. } \forall i$,
+$$
+\bm{\theta}^{i}=\sup_{\bm{q'\theta}\le 0} U_i(\varepsilon^{i}+\bm{D'\theta})
+$$
+and $\sum_{i}^{}\bm{\theta}^{i}=\bm{0}$. 
+
+
+:::
+
+
+
+::::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+:::: {.solution}
+
+
+::: {.definition  name="Completeness"}
+
+With $\mathop{\text{span}}(D)=\left\{ \bm{D'\theta}:\bm{\theta}\in \mathbb{R}^{N} \right\}$ denoting the set of possible portfolio payoffs, called marketed subspace, markets are complete if $\mathop{\text{span}}(\bm{D})=\mathbb{R}^{n}$
+
+:::
+
+
+::: {.definition  name="Pareto optimal"}
+
+A feasible allocation $(\bm{c}^{i})_{i=1}^{m}$ is **Pareto optimal** if there is no allocation $(\bm{\hat{c}}^{i})_{i=1}^{m}$ $\text{ s.t. },\forall i, U_i(\hat{\bm{c}}^{i})\ge U_i(\bm{c}^{i} )$ and $\exists i, U_i(\hat{\bm{c}}^{i})> U_i(\bm{c}^{i} )$.
+
+:::
+
+Equilibrium may not imply Pareto optimality.  For example, to the extreme, if the market has no tradable asset, then every initial allocation corresponds to an equilibrium but it is generally not Pareto optimal.
+
+
+::::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+:::: {.solution}
+
+For portfolio $\theta$, its return is given by
+$$
+\bm{R}=\frac{\bm{D'\theta}}{\bm{q'\theta}}\in \mathbb{R}^{n}
+$$
+Note
+$$
+\mathop{{}\mathbb{E}}_{}\pi R= \frac{\mathop{{}\mathbb{E}}_{}\pi S_{T}'\theta}{q'\theta}=\frac{\left( \mathop{{}\mathbb{E}}_{}S_{T}\pi \right)'\theta}{q'\theta}=1
+$$
+And we we assume there exist a portfolio such that all coordinate of $\bm{R}$ is identical, that constant is called risk-free return $R_{f}$, note $\mathop{{}\mathbb{E}}_{}\pi R=\mathop{{}\mathbb{E}}_{}\pi R_{f}=1$
+$$
+\begin{aligned}
+    \mathop{\text{Cov}}\left[R,\pi \right]&= \mathop{{}\mathbb{E}}_{}\pi R-\mathop{{}\mathbb{E}}_{}\pi\mathop{{}\mathbb{E}}_{}R=R_{f}\mathop{{}\mathbb{E}}_{}\pi-\mathop{{}\mathbb{E}}_{}R\mathop{{}\mathbb{E}}_{}\pi
+\end{aligned}
+$$
+that is 
+$$
+\mathop{{}\mathbb{E}}_{}R-R_{f}=- \frac{\mathop{\text{Cov}}\left[R,\pi \right]}{\mathop{{}\mathbb{E}}_{}\pi}
+$$
+
+
+
+::::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+:::: {.solution}
+
+As $D\theta^*$ can be seen as projection of $\pi$ onto the space, we have,
+$$
+\mathop{\text{Cov}}\left[\pi-\bm{D'\theta^{*}},\bm{D'\theta} \right]=0
+$$
+that is
+$$
+\mathop{\text{Cov}}\left[\pi,\bm{D'\theta} \right]=\mathop{\text{Cov}}\left[\bm{D'\theta^{*}},\bm{D'\theta} \right]
+$$
+then
+$$
+\bm{q'\theta^{*}}\mathop{\text{Cov}}\left[\pi,R \right]=\mathop{\text{Cov}}\left[R^{*},R \right]\implies \mathop{\text{Cov}}\left[R,\pi \right] \propto \mathop{\text{Cov}}\left[R,R^{*} \right]
+$$
+Also we have
+$$
+\mathop{{}\mathbb{E}}_{}R-R_{f} \propto \mathop{\text{Cov}}\left[R,\pi \right] 
+$$
+from previous result, that implies
+$$
+\frac{\mathop{{}\mathbb{E}}_{}R-R_{f}}{\mathop{{}\mathbb{E}}_{}R^{*}-R_{f}}=\frac{\mathop{\text{Cov}}\left[R^{*},R \right]}{\mathop{\text{Var}}R^{*}}=\beta_{\theta}
+$$
+
+
+
+
+
+
+::::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+::: {.solution}
+
+
+As we have
+$$
+1=A \mathop{{}\mathbb{E}}_{}R^{\theta}-B \mathop{\text{Cov}}\left[R^{\theta},e \right]
+$$
+Let $\theta=\theta^{0}$, we have
+$$
+1=A \mathop{{}\mathbb{E}}_{}R^{0}
+$$
+thus we have
+$$
+\mathop{{}\mathbb{E}}_{}(R^{\theta}-R^{0}) \propto \mathop{\text{Cov}}\left[R^{\theta},e \right]
+$$
+From similar projection argument, we have
+$$
+\mathop{\text{Cov}}\left[e-R^{M},R^{\theta} \right]=0
+$$
+that implies $\mathop{\text{Cov}}\left[R^{\theta},e \right]=\mathop{\text{Cov}}\left[R^{\theta},R^{M} \right]$. Thus
+$$
+\frac{\mathop{{}\mathbb{E}}_{} \left( R^{\theta}-R^{0} \right)}{\mathop{{}\mathbb{E}}_{}\left(  R^{M}-R^{0}\right)}=\frac{\mathop{\text{Cov}}\left[R^{\theta},R^{M} \right]}{\mathop{\text{Var}}R^{M}}=\beta_\theta
+$$
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+Similar to exercise 5, the conditions is
+$$
+G>R>B
+$$
+and the state price is
+$$
+\psi_1=R^{-1} \frac{R-B}{G-B}, \psi_2=R^{-1} \frac{G-R}{G-B}
+$$
+Then we develop our valuation by
+$$
+C=D_{31}\psi_1+D_{32}\psi_2
+$$
+and hedging strategy by solving
+$$
+\bm{D'\theta}=(D_{31},D_{32})'
+$$
+and we have
+$$
+\theta_1=\frac{D_{31}-D_{32}}{(G-B)q_1}, \theta_2= \frac{GD_{32}-BD_{31}}{(G-B)Rq_2}
+$$
+
+:::
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+Similar to previous exercise, the condition is:
+$$
+u>1+r>d
+$$
+if we assume $u>d$ WLOG, and the state price is
+$$
+\psi=\bm{D^{-1}q}=\frac{1}{1+r}\begin{bmatrix}
+                 \frac{1+r-d}{(u-d)}	\\
+                 \frac{-1-r+u}{(u-d)}	\\
+             \end{bmatrix}
+$$
+Then we develop our valuation by
+$$
+V_0=V_1(H )\psi_1+V_1(T)\psi_2
+$$
+and hedging strategy by investing
+$$
+\Delta_0=\frac{V_1(H)-V_1(T)}{S_1(H )-S_1(T )}
+$$
+on stock $S_0$ and $V_0-\Delta_0S_0$ on risk-free borrowing, where
+$$
+S_1(H)=uS_0,S_1(T)=dS_0
+$$
+
+:::
+
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+
+::: {.solution}
+
+Suppose the first one's portfolio is $\bm{\theta}=(\theta_1,\theta_2)$, then
+$$
+\frac{\theta_1+\theta_2+0.5}{2} + 
+\frac{3\theta_1+\theta_2+1.5}{2} - \alpha(q_1\theta_1+q_2\theta_2)
+$$
+FOC implies that:
+$$
+\begin{cases}
+    2 = \alpha q_1 \\
+    1=\alpha q_2
+\end{cases} \implies q_1=2q_2
+$$
+The second should invest $( -\theta_1,-\theta_2)$ and hence
+$$
+\frac{\sqrt{-\theta_1-\theta_2+\frac{1}{2}}}{2}+
+\frac{\sqrt{-3\theta_1-\theta_2+\frac{3}{2}}}{2}-\beta(q_1\theta_1+q_2\theta_2)
+$$
+FOC and $q_1=2q_2$ implies
+$$
+\sqrt{-\theta_1-\theta_2+\frac{1}{2}}=
+\sqrt{-3\theta_1-\theta_2+\frac{3}{2}}
+$$
+it follows that $\theta_1=\frac{1}{2}$. Hence, the equilibrium is
+$$
+\theta^1=\left( \frac{1}{2},-1 \right),
+\theta^2=\left(- \frac{1}{2},1 \right), q=\left( 2\alpha,\alpha \right)
+$$
+and
+$$
+c^1=\left( 0,2 \right),c^2=\left( 1,1 \right)
+$$
+
+:::
+
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+a. The optimize problem of first agent is
+$$
+\max_{c^{1},c^{2},\lambda}U(c_1^{1},c_2^{1})=0.2\sqrt{c_1^{1}}+0.5 \log c_2^{1}-\lambda \left[ c_1^{1}\psi_1+c_2^{1}\psi_2-(e_1^{1}\psi_1+e_2^{1}\psi_2) \right]
+$$
+FOC
+$$
+\begin{cases}
+    0.2\times \frac{1}{2\sqrt{c_1^{1}}}=\lambda \psi_1 \\
+    \frac{1}{2c_2^{1}}=\lambda \psi_2
+\end{cases}
+$$
+As $(9,10)'$ is the solution, we derive that $\psi_2=1.5\psi_1$. Noting that above formula also holds for agent 2 and
+$$
+c_1^{2*}=e_1-c_1^{1*}=16
+$$
+we have $c_2^{2*}=\frac{40}{3}$.
+
+b. The price of the risk-free asset is $10\psi+15\psi_1=25\psi_1$. The price of other asset is $5\psi_1+15\psi_1=20\psi_1$. Thus the ratio should be $\frac{5}{4}$.
+
+:::
+
+::: {.exercise  name=""}
+
+$\quad$
+
+:::
+
+
+::: {.solution}
+
+a. A counterexample can be found in exercise 7.
+
+b. Suppose $\bm{\psi}$ is one state price in $\bm{D}$  
+$\implies$, if $\bm{\psi'}$ is another one, we have
+$$
+\bm{D(\psi-\psi')}=0
+$$
+As $\bm{D}$ is complete and thus have full column rank, $\bm{\psi}-\bm{\psi}'=\bm{0}$ and thus $\bm{\psi=\psi'}$.  
+$\impliedby$, as $\bm{\psi}$ is unique, the null space of $\bm{D}$ is $\left\{ \bm{0} \right\}$ and thus have full rank column space, which is meaning of complete market precisely.
+
+c. If the market is incomplete, we have a nonzero null space and suppose $\bm{n_1}$ is one of them, then we can choose $\alpha \in \mathbb{R}$ small enough $\text{ s.t. }$,
+$$
+\bm{\psi}+\alpha \bm{n_1} \in \mathbb{R}_{++}^{S}
+$$
+and it's still state price by definition. Note such $\alpha$ is infinite many, this completes the proof.
+
+:::
+
+
+
